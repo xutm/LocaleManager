@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Ucloud</title>
+	<script type="text/javascript" src="./scripts/app/underscore.js"></script>
+	<script type="text/javascript" src="./scripts/app/angular.min.js"></script>
+	<script type="text/javascript" src="./scripts/app/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="./scripts/app/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="./scripts/app/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./scripts/app/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./styles/css/main.css">
+	<script type="text/javascript" src="./scripts/main.js"></script>
+	<script type="text/javascript" src="./scripts/main-module.js"></script>
+	<script type="text/javascript" src="./scripts/controllers/operate-json-menu-controller.js"></script>
+	<script type="text/javascript" src="./scripts/controllers/login-controller.js"></script>
+	<script type="text/javascript" src="./scripts/filters/filterJsonData.js"></script>
+	<script type="text/javascript" src="./scripts/services/login-service.js"></script>
+</head>
+<body>
+
+	<div ui-view>
+	<!--	<div class="lfms-form container">
+			<div>
+				<img src="./images/UcloudLogo.jpg">
+			</div>
+			<div>
+				<h1>
+					Hi!
+				</h1>
+				<p>
+					Let's connect to Ucloud...
+				</p>
+			</div>	
+		</div>	-->
+	</div>
+
+
+</body>
+<script type="text/javascript">
+	//setTimeout(function asyncBootstrap() {
+		angular.bootstrap(document, ['myModule']);
+	//},5000);
+</script>
+</html>

@@ -1,0 +1,16 @@
+<form action="{{action}}" method="post">
+    <div class="login-page">
+        <div class="login-wrap">
+            <div class="login-group">
+                <span class="glyphicon glyphicon-user"></span>
+                <input type="text" name="UserName" placeholder="Username" ng-model="loginData.UserName" required />
+            </div>
+            <div class="login-group">
+                <span class="glyphicon glyphicon-lock"></span>
+                <input type="password" name="Password" placeholder="Password" ng-model="loginData.Password" required />
+            </div>
+            <button type="submit" class="login-btn" title="login" ng-disable="!loginData.UserName || !loginData.Password">GO</button>
+        </div>
+        <p class="cp-info">Copyright © 2016 UWeb All rights reserved.</p>
+    </div>
+</form>

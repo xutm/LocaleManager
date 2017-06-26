@@ -1,0 +1,143 @@
+	<div class="lfms-header">
+		<div class="container">
+			<h1 class="title pull-left">Uweb<br />
+				<small>Language File Management System</small>
+			</h1>
+			<div class="action-wrap">
+				<select class="btn" ng-model="selectedUser" ng-options="userInfo for userInfo in userInfos" style="height:32px">
+					<!--<option value="">-- choose user --</option>-->
+				</select>
+				<button type="button" class="btn" ng-click="logout()">
+					<span class="glyphicon glyphicon-log-out"></span>
+					Logout
+				</button>
+				<button type="button" class="btn" ng-click="load()">
+					<span class="glyphicon glyphicon-import"></span>
+					Refresh
+				</button>
+				<button type="button" class="btn" ng-click="export('cn')">
+					<span class="glyphicon glyphicon-export"></span>
+					export cn
+				</button>
+    			<button type="button" class="btn" ng-click="export('en')">
+					<span class="glyphicon glyphicon-export"></span>
+					export en
+				</button>
+
+			</div>
+		</div>
+	</div>
+	<div class="lfms-form container">
+		<div class="lfms-form-header expand" ng-click="addNameFlag = !addNameFlag">
+			<span class="glyphicon glyphicon-file" ng-class="addFlag"></span>
+			Add new item to file
+			<span class="glyphicon glyphicon-arrow-down"></span>
+		</div>
+		<div class="lfms-form-body form-horizontal" ng-show="addNameFlag">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Name</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newTag.Name" placeholder="input Name" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">CN</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newTag.CN" placeholder="input CN" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">EN</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newTag.EN" placeholder="input EN" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Field</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newField" placeholder="input Field"/>
+				</div>
+			</div>
+		</div>
+		<div class="lfms-form-action" ng-show="addNameFlag">
+			<button ng-click="addTag()" class="btn btn-default">
+				<span class="glyphicon glyphicon-plus"></span>
+				AddNewName
+			</button>
+		</div>
+	</div>
+	<div class="lfms-form container">
+	<div class="lfms-form-header">
+		<button class="btn" ng-disabled="currentPage <= 1" ng-click="currentPage = currentPage - 1"><<</button>
+		<button class="btn" ng-disabled="currentPage >= maxPage" ng-click="currentPage = currentPage + 1">>></button>
+		Page {{currentPage}} of {{maxPage}} 
+		<div class="search-wrap">
+			<input type='text' class="lfms-input" ng-model="Page" placeholder="Please Input the Page" title="Please Input the Page">
+			<span class="glyphicon glyphicon-search" ng-click="changePage()"></span>
+		</div>
+	</div>	
+	</div>
+	<div class="container lfms-form">
+		<div class="lfms-form-header">
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Data list
+			<div class="search-wrap filter-wrap">
+				<select class="btn" ng-model="key" ng-options="keyV for keyV in keys">
+					<!--<option value="">-- choose user --</option>-->
+				</select>
+				<input type='text' class="lfms-input" ng-model="keyValueFilter" placeholder="Please Input Key Value" title="Please Input Key Value">
+				<span class="glyphicon glyphicon-search"></span>
+			</div>
+		</div>
+		<div class="lfms-tb-wrap">
+			<table ng-table="tableParams" class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>CN</th>
+						<th>EN</th>
+						<th>Field</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--<tr ng-repeat="Tag in Tags | filter:keyValueFilter | startFrom: (currentPage - 1)*pageSize : this | limitTo:pageSize">-->
+					<tr ng-repeat="Tag in Tags | keyFilter: this : keyValueFilter : key | startFrom: (currentPage - 1)*pageSize : this | limitTo:pageSize">
+						<td title="Name">
+							<span ng-show="!Tag.$edit" title = {{Tag.Name}}>{{Tag.Name}}</span>
+							<div ng-show="Tag.$edit" title = {{Tag.Name}}><input type="text" ng-model="Tag.Name" class="form-control"></div>
+						</td>
+						<td title="CN">
+							<span ng-show="!Tag.$edit" title = {{Tag.CN}}>{{Tag.CN}}</span>
+							<div ng-show="Tag.$edit" title = {{Tag.CN}}><input type="text" ng-model="Tag.CN" class="form-control"></div>
+						</td>
+						<td title="EN">
+							<span ng-show="!Tag.$edit" title = {{Tag.EN}}>{{Tag.EN}}</span>
+							<div ng-show="Tag.$edit" title = {{Tag.EN}}><input type="text" ng-model="Tag.EN" class="form-control"></div>
+						</td>
+						<td title="Field">
+							<span ng-show="!Tag.$edit" title = {{Tag.Field}}>{{Tag.Field}}</span>
+							<div ng-show="Tag.$edit" title = {{Tag.Field}}><input type="text" ng-model="Tag.Field" class="form-control"></div>
+						</td>
+						<td>
+							<div class="tb-btn-action">
+								<button ng-show="!Tag.$edit" ng-click="Tag.$edit = true; editTag(Tag)" class="btn">
+									<span class="glyphicon glyphicon-pencil"></span>
+									Edit
+								</button>
+								<button ng-show="Tag.$edit" ng-click="Tag.$edit = false; saveTag(Tag)" class="btn">
+									<span class="glyphicon glyphicon-ok"></span>
+									Save
+								</button>
+								<button ng-show="Tag.$edit" ng-click="Tag.$edit = false; deleteTag(Tag)" class="btn">
+									<span class="glyphicon glyphicon-remove"></span>
+									Delete
+								</button>
+								<!--<a ng-click="addStudent()" ng-show="Tag.$edit">Add</a>-->
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
